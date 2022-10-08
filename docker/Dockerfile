@@ -45,7 +45,10 @@ RUN <<EOF
         libwebkitgtk-1.0 \
         libusb-1.0-0-dev \
         portaudio19-dev \
-        libasound2-dev
+        libasound2-dev \
+        libsndfile1-dev \
+        libportmidi-dev \
+        liblo-dev
 
     # General User Tools
     apt-get install -y \
