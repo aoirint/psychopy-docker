@@ -16,8 +16,10 @@ RUN <<EOF
     apt-get update
     apt-get upgrade -y
 
-    # Python Install Dependencies
+    # Python Build Dependencies
+    # https://github.com/pyenv/pyenv/wiki#suggested-build-environment
     apt-get install -y \
+        make \
         build-essential \
         libssl-dev \
         zlib1g-dev \
@@ -27,13 +29,13 @@ RUN <<EOF
         wget \
         curl \
         llvm \
-        libncurses5-dev \
         libncursesw5-dev \
         xz-utils \
         tk-dev \
+        libxml2-dev \
+        libxmlsec1-dev \
         libffi-dev \
         liblzma-dev \
-        python-openssl \
         git
 
     # Psychopy Dependencies
@@ -56,6 +58,19 @@ RUN <<EOF
     PREFIX=$PYBUILD_ROOT $PYENV_ROOT/plugins/python-build/install.sh
     $PYBUILD_ROOT/bin/python-build -v $PYTHON_VERSION $PYTHON_ROOT
     rm -rf $PYBUILD_ROOT $PYENV_ROOT
+EOF
+
+# Install wxPython (PsychoPy dependency)
+# Linux wheel is not provided on PyPI, so we install it from wxPython website.
+# https://www.psychopy.org/download.html#linux
+ARG WXPYTHON_WHEEL_URL="https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-20.04/wxPython-4.2.0-cp310-cp310-linux_x86_64.whl"
+RUN <<EOF
+    set -eux
+    mkdir -p /opt/wxpython
+    cd /opt/wxpython
+    wget "${WXPYTHON_WHEEL_URL}"
+    pip3 install *.whl
+    rm -rf /opt/wxpython
 EOF
 
 RUN <<EOF
