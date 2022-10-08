@@ -42,6 +42,9 @@ RUN <<EOF
     apt-get install -y \
         libhdf5-dev \
         freeglut3-dev \
+        libusb-1.0-0-dev \
+        portaudio19-dev \
+        libasound2-dev
 
     # General User Tools
     apt-get install -y \
