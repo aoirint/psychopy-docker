@@ -42,6 +42,7 @@ RUN <<EOF
     apt-get install -y \
         libhdf5-dev \
         freeglut3-dev \
+        libwebkitgtk-1.0 \
         libusb-1.0-0-dev \
         portaudio19-dev \
         libasound2-dev
