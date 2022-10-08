@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.3-labs
-ARG BASE_IMAGE=ubuntu:focal
+ARG BASE_IMAGE=ubuntu:20.04
 FROM $BASE_IMAGE
 
 ARG PYTHON_VERSION=3.10.7
