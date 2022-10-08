@@ -12,10 +12,12 @@ ARG PYBUILD_ROOT=/tmp/python-build
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN <<EOF
+    set -eux
     apt-get update
     apt-get upgrade -y
+
+    # Python Install Dependencies
     apt-get install -y \
-        # Python Install Dependencies
         build-essential \
         libssl-dev \
         zlib1g-dev \
@@ -32,11 +34,15 @@ RUN <<EOF
         libffi-dev \
         liblzma-dev \
         python-openssl \
-        git \
-        # Psychopy Dependencies
+        git
+
+    # Psychopy Dependencies
+    apt-get install -y \
         libhdf5-dev \
         freeglut3-dev \
-        # General User Tools
+
+    # General User Tools
+    apt-get install -y \
         gosu
 
     apt-get clean
@@ -45,6 +51,7 @@ EOF
 
 RUN <<EOF
     # Install Python
+    set -eux
     git clone https://github.com/pyenv/pyenv.git $PYENV_ROOT
     PREFIX=$PYBUILD_ROOT $PYENV_ROOT/plugins/python-build/install.sh
     $PYBUILD_ROOT/bin/python-build -v $PYTHON_VERSION $PYTHON_ROOT
@@ -53,6 +60,7 @@ EOF
 
 RUN <<EOF
     # Install psychopy
+    set -eux
     pip3 install PsychoPy==$PSYCHOPY_VERSION
 EOF
 
