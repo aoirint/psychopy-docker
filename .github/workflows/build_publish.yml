@@ -11,8 +11,8 @@ jobs:
   push:
     name: Push Docker image to Docker Hub
     env:
-      PSYCHOPY_VERSION: 2020.2.5
-      PYTHON_VERSION: 3.9.0
+      PSYCHOPY_VERSION: 2022.2.4
+      PYTHON_VERSION: 3.10.7
     runs-on: ubuntu-latest
     steps:
       -
@@ -40,7 +40,7 @@ jobs:
           platforms: linux/amd64
           push: true
           build-args: |
-            BASE_IMAGE=ubuntu:bionic
+            BASE_IMAGE=ubuntu:20.04
             PSYCHOPY_VERSION=${{ env.PSYCHOPY_VERSION }}
             PYTHON_VERSION=${{ env.PYTHON_VERSION }}
           tags: |
@@ -57,7 +57,7 @@ jobs:
           platforms: linux/amd64
           push: true
           build-args: |
-            BASE_IMAGE=nvidia/opengl:base-ubuntu18.04
+            BASE_IMAGE=nvidia/opengl:base-ubuntu20.04
             PSYCHOPY_VERSION=${{ env.PSYCHOPY_VERSION }}
             PYTHON_VERSION=${{ env.PYTHON_VERSION }}
           tags: |

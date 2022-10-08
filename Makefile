@@ -1,6 +1,6 @@
 .PHONY: build
 build:
-	docker build ./docker \
+	docker buildx build ./docker \
 		-t aoirint/psychopy-docker \
 		--build-arg BASE_IMAGE=nvidia/opengl:base-ubuntu20.04
 
